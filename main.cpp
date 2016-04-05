@@ -69,16 +69,15 @@ int main(){
 	
 	EmployeeClass employeelist[10] = {person0, person1, person2, person3, person4, person5, person6, person7, person8, person9 };
 	
-
-	int shift = 0;
-	
 	srand(time(0));
 	
+	int shift = 0;	
+	int managersworking = 0;
+	int cashiersworking = 0;
+	int backendworking = 0;
+	
 	for(int i = 0; i <= 2; i = i){
-		int managersworking = 0;
-		int cashiersworking = 0;
-		int backendworking = 0;
-		
+		// random index of employeelist array
 		string test = employeelist[rand()%10].Position();
 		//add managers to first shift
 		if(test == "manager" && managersworking != 1){
