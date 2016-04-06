@@ -78,20 +78,23 @@ int main(){
 	
 	for(int i = 0; i <= 2; i = i){
 		// random index of employeelist array
-		string test = employeelist[rand()%10].Position();
+		EmployeeClass *tester = &employeelist[rand()%10];
 		//add managers to first shift
-		if(test == "manager" && managersworking != 1){
-			cout<<test <<endl;
+		if(tester->Position() == "manager" && managersworking != 1){
+			cout<<tester->Position() + " ";
+			cout<<tester->Name() <<endl;
 			managersworking = 1;
 			i++;
 		}//add backend team meamber to first shift
-		else if(test== "backend" && backendworking != 1){
-			cout<<test <<endl;
+		else if(tester->Position() == "backend" && backendworking != 1){
+			cout<<tester->Position() + " ";
+			cout<<tester->Name() <<endl;
 			backendworking = 1;
 			i++;
 		}//add cashier to first shift
-		else if(test == "frontend" && cashiersworking != 1){
-			cout<<test <<endl;
+		else if(tester->Position() == "frontend" && cashiersworking != 1){
+			cout<<tester->Position() + " ";
+			cout<<tester->Name() <<endl;
 			cashiersworking = 1;
 			i++;
 		}
