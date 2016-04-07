@@ -45,15 +45,6 @@ class EmployeeClass{
 		}
 };
 
-//print function like in java
-void print(string text){
-	cout<<text;
-}
-//print on one line function like in java
-void println(string text){
-	cout<<text<<endl;
-}
-
 int main(){
 
 	EmployeeClass person0("James", "backend", 9.00, 8, 40);//
