@@ -82,19 +82,19 @@ int number;
 		if(test == "manager" && managersworking == 0){
 			//cout<<test <<" " << nameOfEmployee<<endl;
 			managersworking++;
-			shiftOne[j][i] = nameOfEmployee;
+			shiftOne[j][0] = nameOfEmployee;
             i++;
 		}//add backend team meamber to first shift
 		else if(test== "backend" && backendworking ==0){
 			//cout<<test << " " << nameOfEmployee<<endl;
 			backendworking++;
-			shiftOne[j][i] = nameOfEmployee;
+			shiftOne[j][1] = nameOfEmployee;
             i++;
 		}//add cashier to first shift
 		else if(test == "frontend" && cashiersworking == 0){
 			//cout<<test <<" " << nameOfEmployee<<endl;
 			cashiersworking++;
-			shiftOne[j][i] = nameOfEmployee;
+			shiftOne[j][2] = nameOfEmployee;
             i++;
 
 
@@ -102,43 +102,43 @@ int number;
 		else if(test== "backend" && backendworking == 1 && nameOfEmployee != shiftOne[j][0] && nameOfEmployee != shiftOne[j][1] && nameOfEmployee != shiftOne[j][2]){
 			//cout<<test << " " << nameOfEmployee<<endl;
 			backendworking++;
-			shiftTwo[j][i] = nameOfEmployee;
+			shiftTwo[j][3] = nameOfEmployee;
             i++;
 		}
 		else if(test == "frontend" && cashiersworking == 1 && nameOfEmployee != shiftOne[j][0] && nameOfEmployee != shiftOne[j][1] && nameOfEmployee != shiftOne[j][2]){
 			//cout<<test <<" " << nameOfEmployee<<endl;
 			cashiersworking++;
-			shiftTwo[j][i] = nameOfEmployee;
+			shiftTwo[j][4] = nameOfEmployee;
             i++;
         }
         else if(test == "manager" && managersworking == 1 && nameOfEmployee != shiftOne[j][0] && nameOfEmployee != shiftOne[j][1] && nameOfEmployee != shiftOne[j][2]){
 			//cout<<test <<" " << nameOfEmployee<<endl;
 			managersworking++;
-			shiftThree[j][i] = nameOfEmployee;
+			shiftThree[j][5] = nameOfEmployee;
             i++;
             }
         else if(test== "backend" && backendworking ==2 && nameOfEmployee != shiftOne[j][0] && nameOfEmployee != shiftOne[j][1] && nameOfEmployee != shiftOne[j][2] && nameOfEmployee != shiftTwo[j][3]&& nameOfEmployee != shiftTwo[j][4] ){
 			//cout<<test << " " << nameOfEmployee<<endl;
 			backendworking++;
-			shiftThree[j][i] = nameOfEmployee;
+			shiftThree[j][6] = nameOfEmployee;
             i++;
 		}
 		else if(test == "frontend" && cashiersworking == 2 && nameOfEmployee != shiftOne[j][0] && nameOfEmployee != shiftOne[j][1] && nameOfEmployee != shiftOne[j][2] && nameOfEmployee != shiftTwo[j][3]&& nameOfEmployee != shiftTwo[j][4] ){
 			//cout<<test <<" " << nameOfEmployee<<endl;
 			cashiersworking++;
-			shiftThree[j][i] = nameOfEmployee;
+			shiftThree[j][7] = nameOfEmployee;
             i++;
 
 		}
 	}
 	}
-	for(int j = 0; j < 8; j++){
+	/*for(int j = 0; j < 8; j++){
         for(int i = 0; i <=7; i++){
                 cout << shiftOne[j][i]<< shiftTwo[j][i]<<shiftThree[j][i]<<endl;}
-                cout <<"==========================="<< endl;
-	}//if you were to under this and run it, it will not work because the thing above does not place the names
+                cout <<"==========================="<< endl;*/
+	//if you were to under this and run it, it will not work because the thing above does not place the names
 	//in order like i originally thought
-	/*for(int j = 0; j < 8; j++){
+	for(int j = 0; j < 8; j++){
             cout << "First Shift People " << endl;
         for(int i = 0; i <=2; i++){
                 cout << shiftOne[j][i]<< endl;}
@@ -151,7 +151,7 @@ int number;
         for(int i = 5; i <=7; i++){
                 cout << shiftThree[j][i]<< endl;}
 
-        cout << "==============" <<endl;}*/
+        cout << "==============" <<endl;}
 
 
 	return 0;
