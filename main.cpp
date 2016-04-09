@@ -37,6 +37,7 @@ class EmployeeClass{
 		string Position(){
 			return position;
 		}
+
 		float Wage(){
 			return hourlywage;
 		}
@@ -55,7 +56,7 @@ class EmployeeClass{
 		bool AlreadyWorkingCheck(){
 				return alreadyworking;
 		}
-		bool AlreadyWorking(bool x){ //this is so i can change if that person is working already or not
+		void AlreadyWorking(bool x){ //this is so i can change if that person is working already or not
 			alreadyworking = x;
 		}
 };
@@ -77,16 +78,18 @@ int main(){
 	EmployeeClass person13("Garret", "backend", 9.00, 8, 28, 0, false);//
 	EmployeeClass person14("Davon", "manager", 10.00, 8, 40, 0, false);//
 	EmployeeClass person15("Clayton", "backend", 9.00, 8, 28, 0, false);//
-	EmployeeClass employeelist[16] = {person0, person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11, person12, person13, person14, person15};
+	EmployeeClass person16("David", "backend", 9.00, 8, 28, 0, false);//
+	EmployeeClass employeelist[17] = {person0, person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11, person12, person13, person14, person15, person16};
 	srand(time(0));
 	int shift = 0;	// "0" is for opening manager, "1" is for opening backend, "2" is for opening cashier, "3" is for mid backend #1, "4" is for mid backend #2, "5" is for closing manager, "6" is for closing backend, "7" is for closing cashier 
 	int managersworking = 0;
 	int cashiersworking = 0;
 	int backendworking = 0;
-	int availablepeoplefortheday = 8;
+	int availablepeoplefortheday = 9;
+	float payroll = 0;
 	for(int a = 0; a < 7; a++){//this loop is important for later
 		//turns already working to false 
-		for(int z = 0; z < 16; z++){
+		for(int z = 0; z < 17; z++){
 			employeelist[z].AlreadyWorking(false);
 		}
 		shift = 0;	// "0" is for opening manager, "1" is for opening backend, "2" is for opening cashier, "3" is for mid backend #1, "4" is for mid backend #2, "5" is for closing manager, "6" is for closing backend, "7" is for closing cashier 
@@ -94,17 +97,18 @@ int main(){
 		cashiersworking = 0;
 		backendworking = 0;
 		//a single day for a work week made of an array that will have all the people working for that day that will be printed out
-		string Day[8];
+		string Day[9];
 		//This is the first shift loop that adds people for that shift
 		while(shift <=2){
 			//random index of employeelist array and a variable/pointer that just tells the computer which person is being used. it isnt a copy like a normal variable
-			EmployeeClass* exactemployeeobject = &employeelist[rand()%16];
+			EmployeeClass* exactemployeeobject = &employeelist[rand()%17];
 			switch(shift){
 				//opening shift assignment
 /*###*/		case 0: 
 					//adds manager to the "Day" array at index of 0
 					if(managersworking < 1 && exactemployeeobject->Position() == "manager" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() <(exactemployeeobject->MaxWeekHours())){
 						Day[0] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						managersworking++;
@@ -113,6 +117,7 @@ int main(){
 					//adds backend team member to the "Day" array at index of 1 
 					else if(backendworking < 1 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){
 						Day[1] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						backendworking++;
@@ -121,6 +126,7 @@ int main(){
 					//adds cashier to the "Day" array at index 2
 					else if(cashiersworking < 1 && exactemployeeobject->Position() == "frontend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){
 						Day[2] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						cashiersworking++;
@@ -136,30 +142,33 @@ int main(){
 					break;
 /*###*/		case 1:
 					//adds backend team member to the "Day" array at index of 3
-					if(backendworking == 0 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){
+					if(backendworking <1 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){
 						Day[3] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						cout<<exactemployeeobject->Name() + " " + "10-6" <<endl;
 						backendworking++;
 					}
 					if(managersworking < 1 && exactemployeeobject->Position() == "manager" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() <(exactemployeeobject->MaxWeekHours())){
-						Day[0] = exactemployeeobject->Name();
+						Day[8] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						managersworking++;
-						cout<<exactemployeeobject->Name() + " " + "7-3" <<endl;
+						cout<<exactemployeeobject->Name() + " " + "10-6" <<endl;
 					}
 					//adds backend team member to the "Day" array at index of 4
-					else 	if(backendworking == 1 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){                      
+					else 	if(backendworking < 2 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){                      
 						Day[4] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						cout<<exactemployeeobject->Name() + " " + "10-6" <<endl;
 						backendworking++;
 					}
 					// ends opening shift assignment
-					if(backendworking == 2){
+					if(backendworking == 2 && managersworking == 1){
 						shift++;
 						managersworking = 0;
 						cashiersworking = 0;
@@ -170,25 +179,28 @@ int main(){
 					//adds manager to the "Day" array at index of 0
 					if(managersworking < 1 && exactemployeeobject->Position() == "manager" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < exactemployeeobject->MaxWeekHours()){
 						Day[5] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 7.5;
 						exactemployeeobject->AlreadyWorking(true);
 						exactemployeeobject->AddWorkedHours(7.5);
 						cout<<exactemployeeobject->Name() + " " + "1-9" <<endl;
 						managersworking++;
 					}
 					//adds backend team member to the "Day" array at index of 6
-					else if(backendworking < 1 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){
+					else if(backendworking < 1 && exactemployeeobject->Position() == "backend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 6)){
 						Day[6] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 5.5;
 						exactemployeeobject->AlreadyWorking(true);
-						exactemployeeobject->AddWorkedHours(7.5);
-						cout<<exactemployeeobject->Name() + " " + "1-9" <<endl;
+						exactemployeeobject->AddWorkedHours(5.5);
+						cout<<exactemployeeobject->Name() + " " + "3:30-9" <<endl;
 						backendworking++;
 					}
 					//adds cashier to the "Day" array at index 7
-					else if(cashiersworking < 1 && exactemployeeobject->Position() == "frontend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 8)){
+					else if(cashiersworking < 1 && exactemployeeobject->Position() == "frontend" && exactemployeeobject->AlreadyWorkingCheck() != true && exactemployeeobject->WorkedHours() < (exactemployeeobject->MaxWeekHours() - 6)){
 						Day[7] = exactemployeeobject->Name();
+						payroll += exactemployeeobject->Wage() * 5.5;
 						exactemployeeobject->AlreadyWorking(true);
-						exactemployeeobject->AddWorkedHours(7.5);
-						cout<<exactemployeeobject->Name() + " " + "1-9" <<endl;
+						exactemployeeobject->AddWorkedHours(5.5);
+						cout<<exactemployeeobject->Name() + " " + "3:30-9" <<endl;
 						cashiersworking++;
 					}
 					// ends opening shift assignment
@@ -207,6 +219,8 @@ int main(){
 	for(int x = 0; x < 16; x++){
 		cout << employeelist[x].Name() << " " << employeelist[x].WorkedHours() << endl;
 	}
+	
+	cout << payroll << endl;
 	
 	
 	
